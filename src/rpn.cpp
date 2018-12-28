@@ -29,4 +29,11 @@ namespace rpn {
         return result;
     }
 
+    int charToInt(const char& c) {
+        if (!isdigit(static_cast<unsigned char>(c))) {
+            throw invalid_argument("argument should be number character");
+        }
+        return c - '0';
+    }
+
 }
