@@ -1,4 +1,7 @@
 #include "rpn.h"
+#include <vector>
+
+using namespace std;
 
 namespace rpn {
 
@@ -19,6 +22,11 @@ namespace rpn {
         }
 
         return ParseResult::Invalid;
+    }
+
+    vector<char> stringToChars(const string& s) {
+        vector<char> result(s.begin(), s.end());
+        return result;
     }
 
 }
