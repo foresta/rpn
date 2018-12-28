@@ -34,3 +34,12 @@ TEST(rpn_test, func_charToOperator) {
     ASSERT_EQ(0, rpn::charToOperator('/')(3, 0));
     ASSERT_THROW(rpn::charToOperator('a'), invalid_argument);
 }
+
+TEST(rpn_test, func_rpn) {
+    ASSERT_EQ(rpn::rpn("1234+++"), 10);
+    ASSERT_EQ(rpn::rpn("83+5-9+"), 15);
+    ASSERT_EQ(rpn::rpn("893/*4+"), 28);
+    ASSERT_THROW(rpn::rpn("8888+"), invalid_argument);
+    ASSERT_THROW(rpn::rpn("88++88+"), invalid_argument);
+    ASSERT_THROW(rpn::rpn("abcdefg"), invalid_argument);
+}

@@ -1,5 +1,6 @@
 #include "rpn.h"
 #include <vector>
+#include <stack>
 
 using namespace std;
 
@@ -49,5 +50,48 @@ namespace rpn {
             default:
                 throw invalid_argument("operator should be +-*/");
         }
+    }
+
+
+    int rpn(const string& s) {
+        stack<int> operands;
+
+        for (const char c : stringToChars(s)) {
+            ParseResult parseResult = parse(c);
+            switch (parseResult) {
+                case ParseResult::Operator:
+                    {
+                        if (operands.size() < 2) {
+                            throw invalid_argument("Invalid RPN syntax.(operator should be required two operands)");
+                        }
+
+                        auto op2 = operands.top();
+                        operands.pop();
+
+                        auto op1 = operands.top();
+                        operands.pop();
+
+                        int result = charToOperator(c)(op1, op2);
+                        operands.push(result);
+
+                        break;
+                    }
+                case ParseResult::Operand:
+                    {
+                        operands.push(charToInt(c));
+                        break;
+                    }
+                case ParseResult::Invalid:
+                    {
+                        throw invalid_argument("Invalid character exists.");
+                    }
+            }
+        }
+
+        if (operands.size() != 1) {
+            throw invalid_argument("Invalid RPN syntax.(RPN result is one operand)");
+        }
+
+        return operands.top();
     }
 }
