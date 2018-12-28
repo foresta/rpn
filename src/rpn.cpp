@@ -36,4 +36,18 @@ namespace rpn {
         return c - '0';
     }
 
+    function<int(int, int)> charToOperator(const char& c) {
+        switch (c) {
+            case '+':
+                return [](int a, int b){ return a + b; };
+            case '-':
+                return [](int a, int b){ return a - b; };
+            case '*':
+                return [](int a, int b){ return a * b; };
+            case '/':
+                return [](int a, int b){ if (b == 0) return 0; return a/ b; };
+            default:
+                throw invalid_argument("operator should be +-*/");
+        }
+    }
 }

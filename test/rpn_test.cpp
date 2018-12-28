@@ -23,3 +23,14 @@ TEST(rpn_test, func_charToInt) {
     ASSERT_EQ(9, rpn::charToInt('9'));
     ASSERT_THROW(rpn::charToInt('a'), invalid_argument);
 }
+
+TEST(rpn_test, func_charToOperator) {
+
+    ASSERT_EQ(3, rpn::charToOperator('+')(1,2));
+    ASSERT_EQ(4, rpn::charToOperator('-')(7,3));
+    ASSERT_EQ(12, rpn::charToOperator('*')(4,3));
+    ASSERT_EQ(4, rpn::charToOperator('/')(8, 2));
+    // divide by zero return 0
+    ASSERT_EQ(0, rpn::charToOperator('/')(3, 0));
+    ASSERT_THROW(rpn::charToOperator('a'), invalid_argument);
+}
