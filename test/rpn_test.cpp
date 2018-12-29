@@ -15,7 +15,7 @@ TEST(rpn_test, func_parse) {
 
 TEST(rpn_test, func_stringsToChars) {
     vector<char> result = {'h','e','l','l','o'};
-    ASSERT_EQ(result, rpn::stringToChars("hello"));
+    ASSERT_EQ(rpn::stringToChars("hello"), result);
 }
 
 TEST(rpn_test, func_charToInt) {
