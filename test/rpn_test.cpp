@@ -3,14 +3,14 @@
 #include "src/rpn.cpp"
 
 TEST(rpn_test, func_parse) {
-    ASSERT_EQ(rpn::ParseResult::Operator, rpn::parse('/'));
-    ASSERT_EQ(rpn::ParseResult::Operator, rpn::parse('*'));
-    ASSERT_EQ(rpn::ParseResult::Operator, rpn::parse('+'));
-    ASSERT_EQ(rpn::ParseResult::Operator, rpn::parse('-'));
-    ASSERT_EQ(rpn::ParseResult::Operand, rpn::parse('0'));
-    ASSERT_EQ(rpn::ParseResult::Operand, rpn::parse('3'));
-    ASSERT_EQ(rpn::ParseResult::Operand, rpn::parse('9'));
-    ASSERT_EQ(rpn::ParseResult::Invalid, rpn::parse('a'));
+    ASSERT_EQ(rpn::parse('/'), rpn::ParseResult::Operator);
+    ASSERT_EQ(rpn::parse('*'), rpn::ParseResult::Operator);
+    ASSERT_EQ(rpn::parse('+'), rpn::ParseResult::Operator);
+    ASSERT_EQ(rpn::parse('-'), rpn::ParseResult::Operator);
+    ASSERT_EQ(rpn::parse('0'), rpn::ParseResult::Operand);
+    ASSERT_EQ(rpn::parse('3'), rpn::ParseResult::Operand);
+    ASSERT_EQ(rpn::parse('9'), rpn::ParseResult::Operand);
+    ASSERT_EQ(rpn::parse('a'), rpn::ParseResult::Invalid);
 }
 
 TEST(rpn_test, func_stringsToChars) {
@@ -19,19 +19,19 @@ TEST(rpn_test, func_stringsToChars) {
 }
 
 TEST(rpn_test, func_charToInt) {
-    ASSERT_EQ(1, rpn::charToInt('1'));
-    ASSERT_EQ(9, rpn::charToInt('9'));
+    ASSERT_EQ(rpn::charToInt('1'), 1);
+    ASSERT_EQ(rpn::charToInt('9'), 9);
     ASSERT_THROW(rpn::charToInt('a'), invalid_argument);
 }
 
 TEST(rpn_test, func_charToOperator) {
 
-    ASSERT_EQ(3, rpn::charToOperator('+')(1,2));
-    ASSERT_EQ(4, rpn::charToOperator('-')(7,3));
-    ASSERT_EQ(12, rpn::charToOperator('*')(4,3));
-    ASSERT_EQ(4, rpn::charToOperator('/')(8, 2));
+    ASSERT_EQ(rpn::charToOperator('+')(1,2), 3);
+    ASSERT_EQ(rpn::charToOperator('-')(7,3), 4);
+    ASSERT_EQ(rpn::charToOperator('*')(4,3), 12);
+    ASSERT_EQ(rpn::charToOperator('/')(8, 2), 4);
     // divide by zero return 0
-    ASSERT_EQ(0, rpn::charToOperator('/')(3, 0));
+    ASSERT_EQ(rpn::charToOperator('/')(3, 0), 0);
     ASSERT_THROW(rpn::charToOperator('a'), invalid_argument);
 }
 
